@@ -127,3 +127,36 @@ void mpu6050::print_raw_data(accel accelData, gyro gyroData) const {
 
     printf("gX = %.2f dps | gY = %.2f dps | gZ = %.2f dps | \n", gyro_dps[0], gyro_dps[1], gyro_dps[2]);
 }
+
+void mpu6050::toString(char *buffer, size_t buffer_size, accel accelData, gyro gyroData) const {
+    getAccel(&accelData);
+    getGyro(&gyroData);
+
+    float accel_g[3];
+    accel_g[0] = static_cast<float>(accelData.accel_x) / ACCEL_SCALE_FACTOR;
+    accel_g[1] = static_cast<float>(accelData.accel_y) / ACCEL_SCALE_FACTOR;
+    accel_g[2] = static_cast<float>(accelData.accel_z) / ACCEL_SCALE_FACTOR;
+
+    // Convert raw gyroscope values to degrees per second
+    float gyro_dps[3];
+    gyro_dps[0] = gyroData.gyro_x / GYRO_SCALE_FACTOR;
+    gyro_dps[1] = gyroData.gyro_y / GYRO_SCALE_FACTOR;
+    gyro_dps[2] = gyroData.gyro_z / GYRO_SCALE_FACTOR;
+
+    int minimal_Size = snprintf(nullptr, 0,
+        "aX = %.2f g | aY = %.2f g | aZ = %.2f g \n"
+        "gX = %.2f dps | gY = %.2f dps | gZ = %.2f dps | \n",
+        accel_g[0], accel_g[1], accel_g[2],
+        gyro_dps[0], gyro_dps[1], gyro_dps[2]);
+
+    if(minimal_Size + 1> buffer_size) {
+        snprintf(buffer, buffer_size, "erro, tamanho insuficiente");
+        return;
+    }
+
+    snprintf(buffer, buffer_size,
+        "aX = %.2f g | aY = %.2f g | aZ = %.2f g \n"
+        "gX = %.2f dps | gY = %.2f dps | gZ = %.2f dps | \n",
+        accel_g[0], accel_g[1], accel_g[2],
+        gyro_dps[0], gyro_dps[1], gyro_dps[2]);
+}

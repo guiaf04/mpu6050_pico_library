@@ -129,6 +129,19 @@ public:
      */
     void print_raw_data(accel accelData, gyro gyroData) const;
 
+    /*
+    * [NAME]:        Format String
+    * [FUNCTION]:    toString(char *buffer, size_t buffer_size, accel accelData, gyro gyroData)
+    * [PARAMETERS]:  char* buffer - pointer to buffer that store the formated data
+    *                size_t buffer_size size of the buffer
+    *                accel accelData - reference to accelData structure,
+    *                gyro gyroData - reference to gyroData structure,
+    * [DESCRIPTION]: Return a formated string that contains the values of accelerometer and
+    *                gyroscope sensors of mpu6050 by parameter pointer, of type:
+    *                aX = %.2f g | aY = %.2f g | aZ = %.2f g \n
+    *                gX = %.2f dps | gY = %.2f dps | gZ = %.2f dps | \n
+    */
+    void toString(char *buffer, size_t buffer_size, accel accelData, gyro gyroData) const;
 };
 
 #endif
