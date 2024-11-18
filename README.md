@@ -113,6 +113,8 @@ mpu6050(i2c_inst *i2c_port, uint16_t sda, uint16_t scl);
 - **`void print_raw_data(accel accelData, gyro gyroData);`**  
   Prints formatted accelerometer and gyroscope values to the console.
 
+- **`void toString(char *buffer, size_t buffer_size, accel accelData, gyro gyroData);`**  
+  Returns by pointer a formatted string that cointains accelerometer and gyroscope values.
 ---
 
 ## MPU6050 Configuration
