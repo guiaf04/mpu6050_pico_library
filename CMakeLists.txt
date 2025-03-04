@@ -61,3 +61,10 @@ pico_enable_stdio_uart(${ProjectName} FALSE)
 
 #Add extra outputs
 pico_add_extra_outputs(${ProjectName})
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        mpu6050.uf2
+	/media/$ENV{USER}/RPI-RP2/
+	COMMENT "Copy ${PROJECT_NAME}.uf2 for Raspberry Pi Pico"
+)
